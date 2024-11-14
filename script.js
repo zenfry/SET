@@ -1,10 +1,13 @@
+// DOM Elements
 const newDeckBtn = document.getElementById('new-deck');
 const shuffleDeckBtn = document.getElementById('shuffle-deck');
 const cardsContainer = document.getElementById('cards-container');
 
+// Deck and Displayed Cards
 let deck = [];
 let displayedCards = [];
 
+// Create Deck Function
 const createDeck = () => {
     const shapes = ['oval', 'squiggle', 'diamond'];
     const colors = ['red', 'green', 'purple'];
@@ -12,6 +15,7 @@ const createDeck = () => {
     const shading = ['solid', 'striped', 'open'];
 
     deck = [];
+    displayedCards = []; // Reset displayed cards
     for (let shape of shapes) {
         for (let color of colors) {
             for (let number of numbers) {
@@ -21,40 +25,41 @@ const createDeck = () => {
             }
         }
     }
-    shuffleDeck();
+    shuffleDeck(); // Shuffle the deck after creation
 };
 
+// Shuffle Deck Function
 const shuffleDeck = () => {
     deck = deck.sort(() => Math.random() - 0.5);
-    displayedCards = deck.slice(0, 12);
+    displayedCards = deck.slice(0, 12); // Show the first 12 cards
     renderCards();
 };
 
+// Render Cards Function
 const renderCards = () => {
     cardsContainer.innerHTML = '';
     for (let card of displayedCards) {
         const cardElement = document.createElement('div');
-        cardElement.classList.add('card');
-        cardElement.textContent = `${card.number} ${card.color} ${card.shape} ${card.shade}`;
+        cardElement.classList.add('card', card.shade); // Apply shade class
+        cardElement.style.color = card.color; // Set the color of the card
+        
+        // Card Content
+        cardElement.innerHTML = `
+            <p>${card.number} ${card.shape}</p>
+        `;
+
+        // Click event for card selection
+        cardElement.addEventListener('click', () => {
+            cardElement.classList.toggle('selected');
+        });
+
         cardsContainer.appendChild(cardElement);
     }
 };
 
-const checkForSet = () => {
-    // Logic for checking if a set exists
-    // This will check whether three selected cards form a valid set according to Set game rules
-};
+// Event Listeners
+newDeckBtn.addEventListener('click', createDeck); // New Deck Button
+shuffleDeckBtn.addEventListener('click', shuffleDeck); // Shuffle Deck Button
 
-// Event listeners for buttons
-newDeckBtn.addEventListener('click', () => {
-    createDeck();
-    shuffleDeck();
-});
-
-shuffleDeckBtn.addEventListener('click', () => {
-    shuffleDeck();
-});
-
-// Start the game by creating a deck and shuffling it
+// Initialize the Game
 createDeck();
-shuffleDeck();
