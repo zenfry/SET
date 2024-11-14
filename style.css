@@ -1,15 +1,18 @@
+/* Reset and Box Sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body Styling */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
 }
 
+/* Game Board Layout */
 #game-board {
     display: flex;
     flex-direction: column;
@@ -17,6 +20,7 @@ body {
     margin-top: 50px;
 }
 
+/* Card Container Layout */
 #cards-container {
     display: grid;
     grid-template-columns: repeat(3, 120px);
@@ -24,6 +28,7 @@ body {
     margin-bottom: 20px;
 }
 
+/* Card Styling */
 .card {
     width: 100px;
     height: 150px;
@@ -34,8 +39,42 @@ body {
     border: 2px solid #000;
     border-radius: 10px;
     cursor: pointer;
+    color: #000;
+    font-size: 14px;
+    text-align: center;
 }
 
+/* Shading Styles */
+.solid {
+    background-color: currentColor;
+}
+
+.striped {
+    background-image: repeating-linear-gradient(
+        45deg,
+        currentColor,
+        currentColor 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+.open {
+    background-color: transparent;
+}
+
+/* Hover and Selected Effects */
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.selected {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
 button {
     margin-top: 20px;
     padding: 10px 20px;
@@ -45,4 +84,17 @@ button {
 
 button:hover {
     background-color: #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #cards-container {
+        grid-template-columns: repeat(2, 100px);
+        gap: 10px;
+    }
+
+    .card {
+        width: 80px;
+        height: 120px;
+    }
 }
